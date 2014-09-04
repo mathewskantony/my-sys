@@ -46,6 +46,14 @@ class BootStrap {
 			passwordHash: new Sha256Hash("emp4").toString())
 		users += emp4
 		
+		def lead1 = new User(username: "lead", lastName: "Lead", firstName: "LeadX",
+			emailAddress: "test@blahblah8.com",
+			passwordHash: new Sha256Hash("lead").toString())
+		
+		lead1.addToSubordinates(emp4)
+		
+		users += lead1
+		
 		users.each { user ->
 			if(!User.findByUsername(user.username)) {
 				if(! user.save()) println user.errors
@@ -54,13 +62,17 @@ class BootStrap {
 
 		// Creating the Default Permissions
 		def fullpermission =  "*:*"
-		
+		def homePermission = "home"
 		
 
 		def roles = []
 		// Creating the Default Roles
 		def adminRole = new Role(name: "Administrator")
-		adminRole.addToPermissions(fullpermission);
+		adminRole.addToPermissions(fullpermission)
+		
+		def empRole = new Role(name: "User")
+		empRole.addToPermissions(homePermission)
+		
 		roles += adminRole
 
 		roles.each { role ->
@@ -74,10 +86,11 @@ class BootStrap {
 		admin.addToRoles(adminRole)
 		system.addToRoles(adminRole)
 		//FIXME:Temporary user creation
-		//emp1.addToRoles(adminRole)
-		//emp2.addToRoles(adminRole)
-		//emp3.addToRoles(adminRole)
-		//emp4.addToRoles(adminRole)
+		emp1.addToRoles(empRole)
+		emp2.addToRoles(empRole)
+		emp3.addToRoles(empRole)
+		emp4.addToRoles(empRole)
+		lead1.addToRoles(empRole)
 		
 		sessionFactory.currentSession.flush()
 	}
