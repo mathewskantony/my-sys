@@ -5,6 +5,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException
 import org.apache.shiro.authc.UnknownAccountException
 import org.apache.shiro.authc.SimpleAccount
 import org.apache.shiro.authz.permission.WildcardPermission
+import org.apache.shiro.crypto.hash.Sha1Hash
 
 class DbRealm {
     static authTokenClass = org.apache.shiro.authc.UsernamePasswordToken
@@ -29,8 +30,7 @@ class DbRealm {
             throw new UnknownAccountException("No account found for user [${username}]")
         }
 
-        log.info "Found user '${user.username}' in DB"
-
+        log.info "Found user '${user.username}'"
         // Now check the user's password against the hashed value stored
         // in the database.
         def account = new SimpleAccount(username, user.passwordHash, "DbRealm")
@@ -38,6 +38,12 @@ class DbRealm {
             log.info "Invalid password (DB realm)"
             throw new IncorrectCredentialsException("Invalid password for user '${username}'")
         }
+		/*def passwordHash = new Sha1Hash(authToken.password).toString()
+		log.info "******User password '${user.passwordHash}' in DB and password is  ${passwordHash}"
+		if(user.passwordHash != passwordHash){
+			log.info "Invalid password (DB realm)"
+			throw new IncorrectCredentialsException("Invalid password for user '${username}'")
+		}*/
 
         return account
     }

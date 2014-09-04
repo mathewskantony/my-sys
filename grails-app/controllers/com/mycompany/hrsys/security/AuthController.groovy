@@ -5,6 +5,7 @@ import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.UsernamePasswordToken
 import org.apache.shiro.web.util.SavedRequest
 import org.apache.shiro.web.util.WebUtils
+import org.apache.shiro.crypto.hash.Sha1Hash
 
 class AuthController {
     def shiroSecurityManager
@@ -16,6 +17,8 @@ class AuthController {
     }
 
     def signIn = {
+		log.info "Attempting to authenticate ${params.username} and password ${params.password as String}"
+		
         def authToken = new UsernamePasswordToken(params.username, params.password as String)
 
         // Support for "remember me"
@@ -40,7 +43,7 @@ class AuthController {
             // password is incorrect.
             SecurityUtils.subject.login(authToken)
 
-            log.info "Redirecting to '${targetUri}'."
+            println "Redirecting to '${targetUri}'."
             redirect(uri: targetUri)
         }
         catch (AuthenticationException ex){
