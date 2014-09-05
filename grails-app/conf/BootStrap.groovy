@@ -50,7 +50,7 @@ class BootStrap {
 			emailAddress: "test@blahblah8.com",
 			passwordHash: new Sha256Hash("lead").toString())
 		
-		lead1.addToSubordinates(emp4)
+		//lead1.addToSubordinates(emp4)
 		
 		users += lead1
 		

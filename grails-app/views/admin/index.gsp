@@ -15,12 +15,13 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<g:form action="save" >
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
+			<g:form action="upload" method="post" enctype="multipart/form-data">
+				<br/>
+  				<label for="file">File:</label>
+  				<input type="file" name="file" id="file" />
+  				<br/>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<g:submitButton name="upload" class="save" value="Upload" />
 				</fieldset>
 			</g:form>
 		</div>

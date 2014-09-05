@@ -42,14 +42,22 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 
         // runtime 'mysql:mysql-connector-java:5.1.22'
+		
+		compile(group: 'org.apache.poi', name: 'poi', version: '3.8');
+		//xlxs file support
+		compile(group: 'org.apache.poi', name: 'poi-ooxml', version: '3.8') {
+			excludes 'xmlbeans'
+		}
     }
 
     plugins {
 		compile ":shiro:1.2.1"
+		compile ":excel-import:1.0.0"
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.8.3"
         runtime ":resources:1.2"
-
+		runtime ":excel-import:1.0.0"
+		
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
