@@ -6,14 +6,29 @@ import org.springframework.web.multipart.MultipartHttpServletRequest
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.usermodel.WorkbookFactory
-
+import com.mycompany.hrsys.operations.appraisal.Appraisal
 import com.mycompany.hrsys.security.Role
 import com.mycompany.hrsys.security.User
 
 class AdminController {
 	def excelImportService
 	def sessionFactory
-    def index() { }
+	def loadEmployeeData() {}
+	def initAppraisal(){}
+	def startAppraisalCycle = { servletContext ->
+		
+		def employeeList = User.findAll()
+		employeeList.each {  employee ->
+			employee.addToAppraisals(new Appraisal(year : params.year, cycleNumber : params.cycle, status : 'I'))
+		}
+		sessionFactory.currentSession.flush()
+		
+		flash.message = "Appraisal cycle intialised for year ${params.year}, cycle ${params.cycle}"
+		
+		redirect(action: "list", params: params, controller : "team")
+	}
+	
+	
 	def upload = { servletContext ->
 		
 		Map CONFIG_BOOK_COLUMN_MAP = [
@@ -65,7 +80,7 @@ class AdminController {
 		 }
 		 sessionFactory.currentSession.flush()
 		 
-		 println 'Employees saved successfully'
+		 flash.message = 'Employee data uploaded successfully.'
 		 
 		 redirect(action: "list", params: params, controller : "team")
 	}

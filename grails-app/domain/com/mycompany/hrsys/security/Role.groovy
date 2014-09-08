@@ -9,4 +9,8 @@ class Role {
     static constraints = {
         name(nullable: false, blank: false, unique: true)
     }
+	
+	def String toString(){
+		name
+	}
 }

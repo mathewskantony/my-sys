@@ -1,4 +1,3 @@
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,4 +20,5 @@
 		</div>
 	</body>
 </html>
+
 

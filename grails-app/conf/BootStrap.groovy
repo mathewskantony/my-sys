@@ -14,43 +14,21 @@ class BootStrap {
 	
 	def ceateTestUsers = {
 		def users = []
-		def admin = new User(username: "admin", lastName: "Administrator", firstName: "Admin",
+		def admin = new User(username: "johnd", lastName: "Thomas", firstName: "Dally",
 				emailAddress: "test@blahblah8.com",
 				passwordHash: new Sha256Hash("admin").toString())
 		users += admin
 
-		def system = new User(username: "system", lastName: "System", firstName: "Sys",
+		def system = new User(username: "lordk", lastName: "Koby", firstName: "Lord",
 				emailAddress: "test@blahblah8.com",
-				passwordHash: new Sha256Hash("admin").toString())
+				passwordHash: new Sha256Hash("system").toString())
 		users += system
 
-		//FIXME:Temporary user creation
 		
-		def emp1 = new User(username: "emp1", lastName: "K", firstName: "Employee",
-			emailAddress: "test@blahblah8.com",
-			passwordHash: new Sha256Hash("emp1").toString())
-		users += emp1
-		
-		def emp2 = new User(username: "emp2", lastName: "V", firstName: "EmploeeX",
-			emailAddress: "test@blahblah8.com",
-			passwordHash: new Sha256Hash("emp2").toString())
-		users += emp2
-		
-		def emp3 = new User(username: "emp3", lastName: "S", firstName: "EmployeeY",
-			emailAddress: "test@blahblah8.com",
-			passwordHash: new Sha256Hash("emp3").toString())
-		users += emp3
-		
-		def emp4 = new User(username: "emp4", lastName: "T", firstName: "EmployeeZ",
-			emailAddress: "test@blahblah8.com",
-			passwordHash: new Sha256Hash("emp4").toString())
-		users += emp4
-		
-		def lead1 = new User(username: "lead", lastName: "Lead", firstName: "LeadX",
+		def lead1 = new User(username: "timk", lastName: "Kinston", firstName: "Tim",
 			emailAddress: "test@blahblah8.com",
 			passwordHash: new Sha256Hash("lead").toString())
 		
-		//lead1.addToSubordinates(emp4)
 		
 		users += lead1
 		
@@ -85,11 +63,7 @@ class BootStrap {
 
 		admin.addToRoles(adminRole)
 		system.addToRoles(adminRole)
-		//FIXME:Temporary user creation
-		emp1.addToRoles(empRole)
-		emp2.addToRoles(empRole)
-		emp3.addToRoles(empRole)
-		emp4.addToRoles(empRole)
+
 		lead1.addToRoles(empRole)
 		
 		sessionFactory.currentSession.flush()

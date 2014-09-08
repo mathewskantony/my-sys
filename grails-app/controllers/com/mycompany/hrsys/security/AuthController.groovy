@@ -17,7 +17,7 @@ class AuthController {
     }
 
     def signIn = {
-		log.info "Attempting to authenticate ${params.username} and password ${params.password as String}"
+		log.info "Attempting to authenticate ${params.username}"
 		
         def authToken = new UsernamePasswordToken(params.username, params.password as String)
 
