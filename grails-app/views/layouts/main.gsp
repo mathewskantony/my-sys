@@ -1,4 +1,3 @@
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -22,8 +21,29 @@
 	<body>
 		<div id="grailsLogo" role="banner">
 			<a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a>
-			Welcome <shiro:principal/>
+			<shiro:isLoggedIn>
+				Welcome <shiro:principal/> 
+					| 
+				<g:link action="signOut" controller="auth">Logout</g:link>
+			</shiro:isLoggedIn>
 		</div>
+		<shiro:isLoggedIn>
+			<a href="#list-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+			<div class="nav" role="navigation">
+				<ul>
+					<li><a class="home" href="${createLink(uri: '/home')}"><g:message code="default.home.label"/></a></li>
+					<li><g:link class="list" action="list" controller="team">My Team</g:link></li>
+					<shiro:hasRole name="Administrator">
+			   			<li><g:link class="create" action="index" controller="admin">Admin</g:link></li>
+					</shiro:hasRole>
+				</ul>
+			</div>
+		<div id="list-user" class="content scaffold-list" role="main">
+			<g:if test="${flash.message}">
+				<div class="message" role="status">${flash.message}</div>
+			</g:if>
+		</div>
+		</shiro:isLoggedIn>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
