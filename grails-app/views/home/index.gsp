@@ -10,7 +10,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/home')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list">My Team</g:link></li>
+				<li><g:link class="list" action="list" controller="team">My Team</g:link></li>
 				<shiro:hasRole name="Administrator">
 		   			<li><g:link class="create" action="index" controller="admin">Admin</g:link></li>
 				</shiro:hasRole>

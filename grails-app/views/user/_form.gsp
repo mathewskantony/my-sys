@@ -10,6 +10,46 @@
 	<g:textField name="username" required="" value="${userInstance?.username}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'department', 'error')} ">
+	<label for="department">
+		<g:message code="user.department.label" default="Department" />
+		
+	</label>
+	<g:textField name="department" value="${userInstance?.department}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'managerId', 'error')} ">
+	<label for="managerId">
+		<g:message code="user.managerId.label" default="Manager Id" />
+		
+	</label>
+	<g:textField name="managerId" value="${userInstance?.managerId}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'emailAddress', 'error')} ">
+	<label for="emailAddress">
+		<g:message code="user.emailAddress.label" default="Email Address" />
+		
+	</label>
+	<g:textField name="emailAddress" value="${userInstance?.emailAddress}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'firstName', 'error')} ">
+	<label for="firstName">
+		<g:message code="user.firstName.label" default="First Name" />
+		
+	</label>
+	<g:textField name="firstName" value="${userInstance?.firstName}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'lastName', 'error')} ">
+	<label for="lastName">
+		<g:message code="user.lastName.label" default="Last Name" />
+		
+	</label>
+	<g:textField name="lastName" value="${userInstance?.lastName}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'passwordHash', 'error')} ">
 	<label for="passwordHash">
 		<g:message code="user.passwordHash.label" default="Password Hash" />

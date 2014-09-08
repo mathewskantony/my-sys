@@ -14,7 +14,7 @@ class AdminController {
 	def excelImportService
 	def sessionFactory
     def index() { }
-	def upload() {
+	def upload = { servletContext ->
 		
 		Map CONFIG_BOOK_COLUMN_MAP = [
 			sheet:'Sheet1',
@@ -37,10 +37,8 @@ class AdminController {
 		 def employeeList = excelImportService.columns(workbook, CONFIG_BOOK_COLUMN_MAP)
 		 def newEmpls = []
 		 
-		/* def homePermission = "home"
-		 def empRole = new Role(name: "User")
-		 empRole.addToPermissions(homePermission)
-		 if(! empRole.save()) println empRole.errors*/
+		 
+		 def empRole = Role.findByName("User")
 		 
 		 employeeList.each { Map employeeParamMap ->
 			 def user = User.findByUsername(employeeParamMap['username'])
@@ -49,7 +47,7 @@ class AdminController {
 					 emailAddress: employeeParamMap['emailId'],department:employeeParamMap['dept'],
 					 managerId:employeeParamMap['managerId'],
 					 passwordHash: new Sha256Hash("temp").toString())
-				//user.addToRoles(empRole)
+				user.addToRoles(empRole)
 				newEmpls += user
 			 } else {
 			 	user.setEmailAddress(employeeParamMap['emailId'])
@@ -68,5 +66,7 @@ class AdminController {
 		 sessionFactory.currentSession.flush()
 		 
 		 println 'Employees saved successfully'
+		 
+		 redirect(action: "list", params: params, controller : "team")
 	}
 }
