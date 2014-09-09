@@ -32,7 +32,9 @@
 			<div class="nav" role="navigation">
 				<ul>
 					<li><a class="home" href="${createLink(uri: '/home')}"><g:message code="default.home.label"/></a></li>
-					<li><g:link class="list" action="list" controller="team">My Team</g:link></li>
+					<shiro:hasRole name="Lead">
+						<li><g:link class="list" action="list" controller="team">My Team</g:link></li>
+					</shiro:hasRole>
 					<shiro:hasRole name="Administrator">
 			   			<li><g:link class="create" action="loadEmployeeData" controller="admin">Upload Employee Data</g:link></li>
 			   			<li><g:link class="create" action="initAppraisal" controller="admin">Init Appraisal</g:link></li>
